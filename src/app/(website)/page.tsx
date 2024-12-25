@@ -47,10 +47,10 @@ export default function Home() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="h-8 w-8 rounded-lg bg-white flex items-center justify-center font-bold">
-                  li
+                  dm
                 </div>
                 <span className="text-xl font-semibold text-primary-foreground">
-                  Slide
+                  dm.ai
                 </span>
               </div>
               <nav className="hidden space-x-6 text-sm text-blue-200 md:block">
