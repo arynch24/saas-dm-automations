@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { usePaths } from "@/hooks/user-nav";
 import Link from "next/link";
 import { cn, getMonth } from "@/lib/utils";
@@ -8,14 +8,21 @@ import { useQueryAutomations } from "@/hooks/user-queries";
 import CreateAutomation from "../create-automation";
 import { Button } from "@/components/ui/button";
 import { useMutationDataState } from "@/hooks/use-mutation-data";
+
 type Props = {};
 
 function AutomationList({}: Props) {
+  const { latestVariable } = useMutationDataState(["create-automation"]);
+  const { data } = useQueryAutomations();
   const { pathname } = usePaths();
 
-  const { data } = useQueryAutomations();
-
-  const { latestVariable } = useMutationDataState(["create-automation"]);
+  const optimisticUIData = useMemo(() => {
+    if (latestVariable && latestVariable?.variables && data) {
+      const test = [latestVariable.variables, ...data.data];
+      return { data: test };
+    }
+    return data || { data: [] };
+  }, [latestVariable, data]);
 
   if (data?.status != 200 || data.data.length <= 0) {
     return (
@@ -28,7 +35,7 @@ function AutomationList({}: Props) {
 
   return (
     <div className="flex flex-col gap-u-3">
-      {data.data.map((automation, index) => (
+      {optimisticUIData.data!.map((automation) => (
         <Link
           href={`${pathname}/${automation.id}`}
           className="bg-[#1D1D1D] hover:opacity-80 transition duration-100 rounded-xl p-5 border-[1px] radial--gradient--automations flex border-[#545454]"
