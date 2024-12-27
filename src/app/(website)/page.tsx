@@ -46,10 +46,10 @@ export default function Home() {
           <div className="container px-4 py-8">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-white flex items-center justify-center font-bold">
+                <div className="h-8 w-8 rounded-lg bg-white flex items-center justify-center font-bold text-black">
                   dm
                 </div>
-                <span className="text-xl font-semibold text-primary-foreground">
+                <span className="text-xl font-semibold text-primary">
                   dm.ai
                 </span>
               </div>
@@ -58,7 +58,7 @@ export default function Home() {
                 <Link href="#pricing">Pricing</Link>
                 <Link href="#about">About</Link>
               </nav>
-              <Button className="bg-white text-primary hover:bg-fuchsia-300 hover:text-white">
+              <Button className="bg-white font-bold">
                 <Link href="/sign-in">Login</Link>
               </Button>
             </div>
