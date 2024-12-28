@@ -4,8 +4,8 @@ import { LogoSmall } from "@/svgs/logo-small";
 import React from "react";
 import Items from "./items";
 import { Separator } from "@/components/ui/separator";
-import { HelpDuoToneWhite } from "@/icons";
 import ClerkAuthState from "../clerk-auth-state";
+import { HelpDuoToneWhite } from "@/icons";
 import SubscriptionPlan from "../subscription-plan";
 import UpgradeCard from "./upgrade";
 
@@ -67,7 +67,7 @@ const Sidebar = ({ slug }: Props) => {
             <p className="text-[#9B9CA0]">Help</p>
           </div>
         </div>
-        <SubscriptionPlan type="FREE">
+        <SubscriptionPlan type="PRO">
           <div className="flex-1 flex flex-col justify-end">
             <UpgradeCard />
           </div>

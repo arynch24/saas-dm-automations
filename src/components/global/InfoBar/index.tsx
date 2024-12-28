@@ -31,7 +31,7 @@ const InfoBar = ({ slug }: Props) => {
         <div className="flex gap-x-3 lg:gap-x-5 justify-end">
           <span className="lg:hidden flex items-center flex-1 gap-x-2">
             <Sheet trigger={<Menu />} className="lg:hidden" side="left">
-              <div className="flex flex-col gap-y-5 w-full h-full p-3 bg-[#0e0e0e] bg-opacity-90 bg-clip-padding backdrop-filter backdrop-blur-3xl backdrop--blur__safari ">
+              <div className="flex flex-col gap-y-5 w-full h-full p-3 bg-[#0e0e0e] bg-opacity-90 bg-clip-padding backdrop-filter backdrop--blur__safari backdrop-blur-3xl">
                 <div className="flex gap-x-2 items-center p-5 justify-center">
                   <LogoSmall />
                 </div>
