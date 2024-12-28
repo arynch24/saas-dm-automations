@@ -1,6 +1,6 @@
 import { INTEGRATION_CARDS } from "@/constants/integrations";
 import React from "react";
-import IntegrationCard from "./_components/integration-card";
+import IntegrationCard from "./_components/integration-card/page";
 type Props = {};
 
 function page({}: Props) {

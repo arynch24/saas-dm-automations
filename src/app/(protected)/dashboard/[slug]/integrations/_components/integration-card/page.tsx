@@ -1,3 +1,6 @@
+import { onOAuthInstagram } from "@/actions/integrations";
+import { onUserInfo } from "@/actions/user";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 type Props = {
@@ -8,6 +11,16 @@ type Props = {
 };
 
 function IntegrationCard({ description, icon, strategy, title }: Props) {
+  const onInstaAuth = () => onOAuthInstagram(strategy);
+  const { data } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: onUserInfo,
+  });
+
+  const integrated = data?.data?.integrations.find(
+    (integration) => integration.name === strategy
+  );
+
   return (
     <div className="border-2 border-[#3352CC] rounded-2xl gap-x-5 p-5 flex items-center">
       {icon}
