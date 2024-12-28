@@ -2,6 +2,7 @@ import {
   createAutomations,
   saveKeyword,
   deleteKeyword,
+  savePosts,
 } from "@/actions/automations";
 import { useMutationData } from "./use-mutation-data";
 import { useEffect, useRef, useState } from "react";
@@ -141,4 +142,39 @@ export const useKeyword = (id: string) => {
   );
 
   return { keyword, onValueChange, onKeyPress, deleteMutation };
+};
+
+export const useAutomationPosts = (id: string) => {
+  const [posts, setPosts] = useState<
+    {
+      postid: string;
+      caption?: string;
+      media: string;
+      mediaType: "IMAGE" | "VIDEO" | "CAROSEL_ALBUM";
+    }[]
+  >([]);
+
+  const onSelectPost = (post: {
+    postid: string;
+    caption?: string;
+    media: string;
+    mediaType: "IMAGE" | "VIDEO" | "CAROSEL_ALBUM";
+  }) => {
+    setPosts((prev) => {
+      if (prev.find((p) => p.postid === post.postid)) {
+        return prev.filter((p) => p.postid !== post.postid);
+      } else {
+        return [...prev, post];
+      }
+    });
+  };
+
+  const { mutate, isPending } = useMutationData(
+    ["attach-posts"],
+    () => savePosts(id, posts),
+    "automation-info",
+    () => setPosts([])
+  );
+
+  return { posts, onSelectPost, isPending, mutate };
 };

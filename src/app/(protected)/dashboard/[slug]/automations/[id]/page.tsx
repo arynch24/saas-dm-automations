@@ -9,6 +9,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { prefetchUserAutomation } from "@/react-query/prefetch";
+import ThenNode from "@/components/global/automations/then/node";
 type Props = {
   params: { id: string };
 };
@@ -35,6 +36,7 @@ async function Page({ params }: Props) {
           </div>
           <Trigger id={params.id} />
         </div>
+        <ThenNode id={params.id} />
       </div>
     </HydrationBoundary>
   );

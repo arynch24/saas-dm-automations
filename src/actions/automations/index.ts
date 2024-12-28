@@ -10,7 +10,10 @@ import {
   addTrigger,
   addKeyword,
   deleteKeywordQuery,
+  addPost,
 } from "./queries";
+
+import { findUser } from "../user/queries";
 
 export const createAutomations = async (id?: string) => {
   const user = await onCurrentUser();
@@ -123,6 +126,44 @@ export const deleteKeyword = async (id: string) => {
       return { status: 200, data: "Keyword deleted" };
     }
     return { status: 404, data: "Oops! could not delete keyword" };
+  } catch (error) {
+    return { status: 500, data: "Oops! something went wrong" };
+  }
+};
+
+export const getProfilePosts = async () => {
+  const user = await onCurrentUser();
+  try {
+    const profile = await findUser(user.id);
+    const posts = await fetch(
+      `${process.env.INSTAGRAM_BASE_URL}/me/media?fields=id,caption,media_url,media_type,timestamp&limit=10&access_token=${profile?.integrations[0].token}`
+    );
+    const parsed = await posts.json();
+    if (parsed) return { status: 200, data: parsed };
+    console.log("🔴 Error in getting posts");
+    return { status: 404 };
+  } catch (error) {
+    console.log("🔴 server side Error in getting posts ", error);
+    return { status: 500 };
+  }
+};
+
+export const savePosts = async (
+  autmationId: string,
+  posts: {
+    postid: string;
+    caption?: string;
+    media: string;
+    mediaType: "IMAGE" | "VIDEO" | "CAROSEL_ALBUM";
+  }[]
+) => {
+  await onCurrentUser();
+  try {
+    const create = await addPost(autmationId, posts);
+
+    if (create) return { status: 200, data: "Posts attached" };
+
+    return { status: 404, data: "Automation not found" };
   } catch (error) {
     return { status: 500, data: "Oops! something went wrong" };
   }
