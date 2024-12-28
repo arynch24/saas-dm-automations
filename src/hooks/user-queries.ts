@@ -22,7 +22,7 @@ export const useQueryAutomation = (id: string) => {
 
 export const useQueryUser = () => {
   return useQuery({
-    queryKey: ["user"],
+    queryKey: ["user-profile"],
     queryFn: onUserInfo,
   });
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { useListener } from "@/hooks/use-automations";
 import TriggerButton from "../automations/trigger-button";
 import { AUTOMATION_LISTENERS } from "@/constants/automation";
-import SubscriptionPlan from "../subscription-plan";
+import { SubscriptionPlan } from "../subscription-plan";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";

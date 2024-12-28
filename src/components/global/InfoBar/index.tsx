@@ -9,7 +9,7 @@ import Items from "../sidebar/items";
 import { Separator } from "@/components/ui/separator";
 import ClerkAuthState from "../clerk-auth-state";
 import { HelpDuoToneWhite } from "@/icons";
-import SubscriptionPlan from "../subscription-plan";
+import { SubscriptionPlan } from "../subscription-plan";
 import UpgradeCard from "../sidebar/upgrade";
 import { LogoSmall } from "@/svgs/logo-small";
 import CreateAutomation from "../create-automation";
