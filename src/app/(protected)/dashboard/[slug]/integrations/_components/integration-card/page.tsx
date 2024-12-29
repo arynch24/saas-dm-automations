@@ -1,3 +1,4 @@
+"use client";
 import { onOAuthInstagram } from "@/actions/integrations";
 import { onUserInfo } from "@/actions/user";
 import { useQuery } from "@tanstack/react-query";

@@ -38,7 +38,7 @@ function AutomationList({}: Props) {
       {optimisticUIData.data!.map((automation) => (
         <Link
           href={`${pathname}/${automation.id}`}
-          className="bg-[#1D1D1D] hover:opacity-80 transition duration-100 rounded-xl p-5 border-[1px] radial--gradient--automations flex border-[#545454]"
+          className="bg-[#1D1D1D] hover:opacity-80 transition duration-100 rounded-xl p-5 border-[1px] radial--gradient--automations flex border-[#545454] mb-4"
           key={automation.id}
         >
           <div className="flex flex-col flex-1 items-start">

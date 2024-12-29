@@ -11,7 +11,8 @@ import ClerkAuthState from "../clerk-auth-state";
 import { HelpDuoToneWhite } from "@/icons";
 import { SubscriptionPlan } from "../subscription-plan";
 import UpgradeCard from "../sidebar/upgrade";
-import { LogoSmall } from "@/svgs/logo-small";
+// import { LogoSmall } from "@/svgs/logo-small";
+import Logo from "@/svgs/logo";
 import CreateAutomation from "../create-automation";
 import Search from "./search";
 import { Notifications } from "./notifications";
@@ -33,7 +34,8 @@ const InfoBar = ({ slug }: Props) => {
             <Sheet trigger={<Menu />} className="lg:hidden" side="left">
               <div className="flex flex-col gap-y-5 w-full h-full p-3 bg-[#0e0e0e] bg-opacity-90 bg-clip-padding backdrop-filter backdrop--blur__safari backdrop-blur-3xl">
                 <div className="flex gap-x-2 items-center p-5 justify-center">
-                  <LogoSmall />
+                  {/* <LogoSmall /> */}
+                  <Logo className="max-w-[300px]" />
                 </div>
                 <div className="flex flex-col py-3">
                   <Items page={page} slug={slug} />

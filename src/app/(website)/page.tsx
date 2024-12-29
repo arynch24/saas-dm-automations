@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CheckCircle, MenuIcon } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -65,11 +65,11 @@ export default function Home() {
 
             <div className="mx-auto mt-16 max-w-3xl text-center">
               <h1 className="text-4xl font-bold leading-tight tracking-tighter text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                Transform Your Instagram Engagement with Slide
+                Transform Your Instagram Engagement
               </h1>
 
-              <p className="mt-6 text-lg text-blue-200">
-                Slide revolutionizes how you connect with your audience on
+              <p className="mt-14 text-lg text-blue-200">
+                dm.ai revolutionizes how you connect with your audience on
                 Instagram. Automate responses and boost engagement effortlessly,
                 turning interactions into valuable business opportunities.
               </p>
