@@ -1,24 +1,25 @@
 import axios from "axios";
 
 export const refreshToken = async (token: string) => {
-  const refreshToken = await axios.get(
+  const refresh_token = await axios.get(
     `${process.env.INSTAGRAM_BASE_URL}/refresh_access_token?grant_type=ig_refresh_token&access_token=${token}`
   );
 
-  return refreshToken.data;
+  return refresh_token.data;
 };
 
 export const sendDM = async (
   userId: string,
-  receiverId: string,
+  recieverId: string,
   prompt: string,
   token: string
 ) => {
-  const response = await axios.post(
+  console.log("sending message");
+  return await axios.post(
     `${process.env.INSTAGRAM_BASE_URL}/v21.0/${userId}/messages`,
     {
       recipient: {
-        id: receiverId,
+        id: recieverId,
       },
       message: {
         text: prompt,
@@ -31,8 +32,6 @@ export const sendDM = async (
       },
     }
   );
-
-  return response.data;
 };
 
 export const sendPrivateMessage = async (
@@ -64,11 +63,11 @@ export const sendPrivateMessage = async (
 export const generateTokens = async (code: string) => {
   const insta_form = new FormData();
   insta_form.append("client_id", process.env.INSTAGRAM_CLIENT_ID as string);
+
   insta_form.append(
     "client_secret",
     process.env.INSTAGRAM_CLIENT_SECRET as string
   );
-
   insta_form.append("grant_type", "authorization_code");
   insta_form.append(
     "redirect_uri",
@@ -76,13 +75,10 @@ export const generateTokens = async (code: string) => {
   );
   insta_form.append("code", code);
 
-  const shortTokenRes = await fetch(
-    process.env.INSTRAGRAM_TOKEN_URL as string,
-    {
-      method: "POST",
-      body: insta_form,
-    }
-  );
+  const shortTokenRes = await fetch(process.env.INSTAGRAM_TOKEN_URL as string, {
+    method: "POST",
+    body: insta_form,
+  });
 
   const token = await shortTokenRes.json();
   if (token.permissions.length > 0) {

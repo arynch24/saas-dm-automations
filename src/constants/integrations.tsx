@@ -11,14 +11,14 @@ export const INTEGRATION_CARDS: Props[] = [
   {
     title: "Connect Instagram",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Mauris scelerisque tincidunt ultrices",
+      "Instagram is a photo and video-sharing social networking service owned by Facebook, Inc. It was created by Kevin Systrom and Mike Krieger, and launched in October 2010 exclusively on iOS.",
     icon: <InstagramDuoToneBlue />,
     strategy: "INSTAGRAM",
   },
   {
     title: "Connect Salesforce",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Mauris scelerisque tincidunt ultrices",
+      "Provides customer relationship management software and is an enterprise application focused company.",
     icon: <SalesForceDuoToneBlue />,
     strategy: "CRM",
   },

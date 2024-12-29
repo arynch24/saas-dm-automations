@@ -6,6 +6,7 @@ import { useQueryAutomation } from "@/hooks/user-queries";
 import { useEditAutomation } from "@/hooks/use-automations";
 import { useMutationDataState } from "@/hooks/use-mutation-data";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 type Props = {
   id: string;
@@ -20,7 +21,9 @@ const AutomationsBreadCrumb = ({ id }: Props) => {
   return (
     <div className="rounded-full w-full p-5 bg-[#18181B1A] flex items-center">
       <div className="flex items-center gap-x-3 min-w-0">
+        {/* <Link href={`/dashboard/${}/automations`}> */}
         <p className="text-[#9B9CA0] truncate">Automations</p>
+        {/* </Link> */}
         <ChevronRight className="flex-shrink-0" color="#9B9CA0" />
         <span className="flex gap-x-3 items-center min-w-0">
           {edit ? (
@@ -55,11 +58,11 @@ const AutomationsBreadCrumb = ({ id }: Props) => {
         <p className="hidden md:block text-text-secondary/60 text-sm truncate min-w-0">
           All states are automatically saved
         </p>
-        <div className="flex gap-x-5 flex-shrink-0">
+        {/* <div className="flex gap-x-5 flex-shrink-0">
           <p className="text-text-secondary text-sm truncate min-w-0">
             Changes Saved
           </p>
-        </div>
+        </div> */}
       </div>
       <ActivateAutomationButton id={id} />
     </div>
