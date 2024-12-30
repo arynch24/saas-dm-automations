@@ -1,5 +1,6 @@
 import { client } from "@/lib/prisma";
 
+//Finds a keyword in the DB
 export const matchKeyword = async (keyword: string) => {
   return await client.keyword.findFirst({
     where: {
@@ -11,7 +12,7 @@ export const matchKeyword = async (keyword: string) => {
   });
 };
 
-//For a specific automation, get all the details
+//For a specific automation, get all the details, triggers and listeners
 export const getKeywordAutomation = async (
   automationId: string,
   dm: boolean
@@ -46,6 +47,7 @@ export const getKeywordAutomation = async (
   });
 };
 
+//Finds a post associated with an automation
 export const getKeywordPost = async (postId: string, automationId: string) => {
   return await client.post.findFirst({
     where: {
@@ -57,11 +59,11 @@ export const getKeywordPost = async (postId: string, automationId: string) => {
   });
 };
 
+//Keeps count of the number of comments and DMs sent by automations
 export const trackResponses = async (
   automationId: string,
   type: "COMMENT" | "DM"
 ) => {
-  //Keeping track of the number of comments and DMs sent
   if (type === "COMMENT") {
     return await client.listener.update({
       where: {
@@ -88,6 +90,7 @@ export const trackResponses = async (
   }
 };
 
+//Saves a message to the chat history
 export const createChatHistory = (
   automationId: string,
   sender: string,
@@ -110,6 +113,7 @@ export const createChatHistory = (
   });
 };
 
+//Retrieves the chat history between 2 users.
 export const getChatHistory = async (sender: string, reciever: string) => {
   const history = await client.dms.findMany({
     where: {

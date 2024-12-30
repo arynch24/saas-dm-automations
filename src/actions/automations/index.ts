@@ -155,10 +155,10 @@ export const getProfilePosts = async () => {
     );
     const parsed = await posts.json();
     if (parsed) return { status: 200, data: parsed };
-    console.log("🔴 Error in getting posts");
+    console.log(" Error in getting posts");
     return { status: 404 };
   } catch (error) {
-    console.log("🔴 server side Error in getting posts ", error);
+    console.log(" server side Error in getting posts ", error);
     return { status: 500 };
   }
 };

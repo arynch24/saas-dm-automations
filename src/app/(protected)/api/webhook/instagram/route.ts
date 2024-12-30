@@ -12,38 +12,47 @@ import { openai } from "@/lib/oepnai";
 import { client } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
+//Handles Initial Verification of webhook endpoint
 export async function GET(req: NextRequest) {
   const hub = req.nextUrl.searchParams.get("hub.challenge");
   return new NextResponse(hub);
 }
 
+//Handles the incoming webhook payload
 export async function POST(req: NextRequest) {
+  //Receive the payload and parsing JSON
   const webhook_payload = await req.json();
   let matcher;
   try {
+    //Checks if the payload is a message or a comment
     if (webhook_payload.entry[0].messaging) {
+      //DM
       matcher = await matchKeyword(
         webhook_payload.entry[0].messaging[0].message.text
       );
     }
 
     if (webhook_payload.entry[0].changes) {
+      //Comment
       matcher = await matchKeyword(
         webhook_payload.entry[0].changes[0].value.text
       );
     }
 
+    //Match found
     if (matcher && matcher.automationId) {
       console.log("Matched");
-      // We have a keyword matcher
 
+      //If the payload is a message
       if (webhook_payload.entry[0].messaging) {
+        //Get automation details
         const automation = await getKeywordAutomation(
           matcher.automationId,
           true
         );
 
         if (automation && automation.trigger) {
+          //If a listener is set to send a predefined message, use the sendDM function to send message to insta users - The `sendDM` function uses the Instagram Graph API endpoint:`https://graph.facebook.com/v21.0/{user-id}/messages`
           if (
             automation.listener &&
             automation.listener.listener === "MESSAGE"
@@ -68,6 +77,7 @@ export async function POST(req: NextRequest) {
             }
           }
 
+          //PREMIUM USER : If a listener is set to use the SMARTAI model, use the OpenAI API to generate a response and sends the message to the user using the same sendDM function.
           if (
             automation.listener &&
             automation.listener.listener === "SMARTAI" &&
@@ -123,10 +133,12 @@ export async function POST(req: NextRequest) {
         }
       }
 
+      //Handles incoming comments on a post - sending private replies to comments via the Insta Graph API - /{user-id}/messages
       if (
         webhook_payload.entry[0].changes &&
         webhook_payload.entry[0].changes[0].field === "comments"
       ) {
+        //Get automation details
         const automation = await getKeywordAutomation(
           matcher.automationId,
           false
@@ -134,6 +146,7 @@ export async function POST(req: NextRequest) {
 
         console.log("geting the automations");
 
+        //Get the post associated with the automation &
         const automations_post = await getKeywordPost(
           webhook_payload.entry[0].changes[0].value.media.id,
           automation?.id!
@@ -145,6 +158,8 @@ export async function POST(req: NextRequest) {
           console.log("first if");
           if (automation.listener) {
             console.log("first if");
+
+            //If a listener is set to send a predefined message, use the sendPrivateMessage function to send message to insta users - The `sendPrivateMessage` function uses the Instagram Graph API endpoint:` /{user-id}/messages
             if (automation.listener.listener === "MESSAGE") {
               console.log(
                 "SENDING DM, WEB HOOK PAYLOAD",
@@ -179,6 +194,8 @@ export async function POST(req: NextRequest) {
                 }
               }
             }
+
+            //PREMIUM USER : If a listener is set to use the SMARTAI model, use the OpenAI API to generate a response and sends the message to the user using the same sendPrivateMessage function.
             if (
               automation.listener.listener === "SMARTAI" &&
               automation.User?.subscription?.plan === "PRO"
@@ -238,7 +255,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    //No Match found
     if (!matcher) {
+      //Checks for exisiting conversation history between the user and the bot and contiues the conversation for PREMIUM users
       const customer_history = await getChatHistory(
         webhook_payload.entry[0].messaging[0].recipient.id,
         webhook_payload.entry[0].messaging[0].sender.id
