@@ -1,17 +1,16 @@
+import { z } from "zod";
 import {
   createAutomations,
-  saveKeyword,
   deleteKeyword,
+  saveKeyword,
+  saveListener,
   savePosts,
+  saveTrigger,
+  updateAutomationName,
 } from "@/actions/automations";
 import { useMutationData } from "./use-mutation-data";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import {
-  updateAutomationName,
-  saveListener,
-  saveTrigger,
-} from "@/actions/automations";
-import { z } from "zod";
 import useZodForm from "./use-zod-form";
 import { AppDispatch, useAppSelector } from "../../redux/store";
 import { useDispatch } from "react-redux";
@@ -23,6 +22,7 @@ export const useCreateAutomation = (id?: string) => {
     () => createAutomations(id),
     "user-automations"
   );
+
   return { isPending, mutate };
 };
 
@@ -77,7 +77,7 @@ export const useListener = (id: string) => {
   });
 
   const { isPending, mutate } = useMutationData(
-    ["create-listener"],
+    ["create-lister"],
     (data: { prompt: string; reply: string }) =>
       saveListener(id, listener || "MESSAGE", data.prompt, data.reply),
     "automation-info"
@@ -88,10 +88,7 @@ export const useListener = (id: string) => {
     mutate
   );
 
-  const onSetListener = (type: "MESSAGE" | "SMARTAI") => {
-    setListener(type);
-  };
-
+  const onSetListener = (type: "SMARTAI" | "MESSAGE") => setListener(type);
   return { onSetListener, register, onFormSubmit, listener, isPending };
 };
 
@@ -99,11 +96,11 @@ export const useTriggers = (id: string) => {
   const types = useAppSelector(
     (state) => state.AutomationReducer.trigger?.types
   );
+
   const dispatch: AppDispatch = useDispatch();
 
-  const onSetTrigger = (type: "COMMENT" | "DM") => {
+  const onSetTrigger = (type: "COMMENT" | "DM") =>
     dispatch(TRIGGER({ trigger: { type } }));
-  };
 
   const { isPending, mutate } = useMutationData(
     ["add-trigger"],
@@ -112,13 +109,11 @@ export const useTriggers = (id: string) => {
   );
 
   const onSaveTrigger = () => mutate({ types });
-
   return { types, onSetTrigger, onSaveTrigger, isPending };
 };
 
-export const useKeyword = (id: string) => {
-  const [keyword, setKeyword] = useState<string>("");
-
+export const useKeywords = (id: string) => {
+  const [keyword, setKeyword] = useState("");
   const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setKeyword(e.target.value);
 
@@ -135,6 +130,7 @@ export const useKeyword = (id: string) => {
       setKeyword("");
     }
   };
+
   const { mutate: deleteMutation } = useMutationData(
     ["delete-keyword"],
     (data: { id: string }) => deleteKeyword(data.id),
@@ -160,11 +156,11 @@ export const useAutomationPosts = (id: string) => {
     media: string;
     mediaType: "IMAGE" | "VIDEO" | "CAROSEL_ALBUM";
   }) => {
-    setPosts((prev) => {
-      if (prev.find((p) => p.postid === post.postid)) {
-        return prev.filter((p) => p.postid !== post.postid);
+    setPosts((prevItems) => {
+      if (prevItems.find((p) => p.postid === post.postid)) {
+        return prevItems.filter((item) => item.postid !== post.postid);
       } else {
-        return [...prev, post];
+        return [...prevItems, post];
       }
     });
   };
@@ -175,6 +171,5 @@ export const useAutomationPosts = (id: string) => {
     "automation-info",
     () => setPosts([])
   );
-
-  return { posts, onSelectPost, isPending, mutate };
+  return { posts, onSelectPost, mutate, isPending };
 };

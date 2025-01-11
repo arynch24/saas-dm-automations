@@ -1,7 +1,7 @@
 export type InstagramPostProps = {
   id: string;
-  mediaType: "IMAGE" | "VIDEO" | "CAROSEL_ALBUM";
-  mediaUrl: string;
+  media_type: "IMAGE" | "VIDEO" | "CAROSEL_ALBUM";
+  media_url: string;
   timestamp: Date;
   caption?: string;
 };

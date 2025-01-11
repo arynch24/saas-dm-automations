@@ -3,7 +3,7 @@ import { useQueryAutomation } from "@/hooks/user-queries";
 import React from "react";
 import ActiveTrigger from "./active";
 import { Separator } from "@/components/ui/separator";
-import ThenAction from "../../then/then-action";
+import ThenAction from "../then/then-action";
 import TriggerButton from "../trigger-button";
 import { AUTOMATION_TRIGGERS } from "@/constants/automation";
 import { useTriggers } from "@/hooks/use-automations";

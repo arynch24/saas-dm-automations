@@ -1,5 +1,6 @@
 import { useAutomationPosts } from "@/hooks/use-automations";
 import { useQueryAutomationPosts } from "@/hooks/user-queries";
+import React from "react";
 import TriggerButton from "../trigger-button";
 import { InstagramPostProps } from "@/types/posts.type";
 import { CheckCircle } from "lucide-react";
@@ -12,7 +13,7 @@ type Props = {
   id: string;
 };
 
-function PostButton({ id }: Props) {
+const PostButton = ({ id }: Props) => {
   const { data } = useQueryAutomationPosts();
   const { posts, onSelectPost, mutate, isPending } = useAutomationPosts(id);
 
@@ -21,15 +22,15 @@ function PostButton({ id }: Props) {
       {data?.status === 200 ? (
         <div className="flex flex-col gap-y-3 w-full">
           <div className="flex flex-wrap w-full gap-3">
-            {data.data.map((post: InstagramPostProps) => (
+            {data.data.data.map((post: InstagramPostProps) => (
               <div
                 className="relative w-4/12 aspect-square rounded-lg cursor-pointer overflow-hidden"
                 key={post.id}
                 onClick={() =>
                   onSelectPost({
                     postid: post.id,
-                    media: post.mediaUrl,
-                    mediaType: post.mediaType,
+                    media: post.media_url,
+                    mediaType: post.media_type,
                     caption: post.caption,
                   })
                 }
@@ -44,8 +45,8 @@ function PostButton({ id }: Props) {
                 <Image
                   fill
                   sizes="100vw"
-                  src={post.mediaUrl}
-                  alt="Post Image"
+                  src={post.media_url}
+                  alt="post image"
                   className={cn(
                     "hover:opacity-75 transition duration-100",
                     posts.find((p) => p.postid === post.id) && "opacity-75"
@@ -54,7 +55,6 @@ function PostButton({ id }: Props) {
               </div>
             ))}
           </div>
-
           <Button
             onClick={mutate}
             disabled={posts.length === 0}
@@ -64,10 +64,10 @@ function PostButton({ id }: Props) {
           </Button>
         </div>
       ) : (
-        <p className="text-text-secondary text-center">No Posts found</p>
+        <p className="text-text-secondary text-center">No posts found!</p>
       )}
     </TriggerButton>
   );
-}
+};
 
 export default PostButton;

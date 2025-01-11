@@ -1,5 +1,6 @@
 "use client";
 import { usePaths } from "@/hooks/user-nav";
+import Logo from "@/svgs/logo";
 import React from "react";
 import Items from "./items";
 import { Separator } from "@/components/ui/separator";
@@ -7,8 +8,6 @@ import ClerkAuthState from "../clerk-auth-state";
 import { HelpDuoToneWhite } from "@/icons";
 import { SubscriptionPlan } from "../subscription-plan";
 import UpgradeCard from "./upgrade";
-import Logo from "@/svgs/logo";
-import Link from "next/link";
 
 type Props = {
   slug: string;
@@ -49,10 +48,8 @@ const Sidebar = ({ slug }: Props) => {
        backdrop--blur__safari 
        backdrop-blur-3xl"
       >
-        <div className="flex gap-x-2 items-center p-5 justify-center ">
-          <Link href="/">
-            <Logo className="max-w-[300px]" />
-          </Link>
+        <div className="flex gap-x-2 items-center p-5 justify-center">
+          <Logo />
         </div>
         <div className="flex flex-col py-3">
           <Items page={page} slug={slug} />

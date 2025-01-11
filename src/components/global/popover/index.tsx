@@ -4,19 +4,20 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import React from "react";
 
 type Props = {
-  children: React.ReactNode;
   trigger: JSX.Element;
+  children: React.ReactNode;
   className?: string;
 };
 
-function PopOver({ children, trigger, className }: Props) {
+const PopOver = ({ children, trigger, className }: Props) => {
   return (
     <Popover>
       <PopoverTrigger asChild>{trigger}</PopoverTrigger>
       <PopoverContent
-        className={cn("bg-[#1D1D1D] shadow-lg", className)}
+        className={cn("bg-[#1D1D1D] shadow-lg rounded-xl", className)}
         align="end"
         side="bottom"
       >
@@ -24,6 +25,6 @@ function PopOver({ children, trigger, className }: Props) {
       </PopoverContent>
     </Popover>
   );
-}
+};
 
 export default PopOver;

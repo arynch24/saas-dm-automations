@@ -1,15 +1,17 @@
-import React from "react";
-import { useKeyword } from "@/hooks/use-automations";
+import { Input } from "@/components/ui/input";
+import { useKeywords } from "@/hooks/use-automations";
 import { useMutationDataState } from "@/hooks/use-mutation-data";
 import { useQueryAutomation } from "@/hooks/user-queries";
 import { X } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import React from "react";
+
 type Props = {
   id: string;
 };
 
-function Keywords({ id }: Props) {
-  const { onValueChange, keyword, onKeyPress, deleteMutation } = useKeyword(id);
+export const Keywords = ({ id }: Props) => {
+  const { onValueChange, keyword, onKeyPress, deleteMutation } =
+    useKeywords(id);
   const { latestVariable } = useMutationDataState(["add-keyword"]);
   const { data } = useQueryAutomation(id);
 
@@ -20,28 +22,23 @@ function Keywords({ id }: Props) {
       </p>
       <div className="flex flex-wrap justify-start gap-2 items-center">
         {data?.data?.keywords &&
-          data.data.keywords.length > 0 &&
-          data.data.keywords.map(
+          data?.data?.keywords.length > 0 &&
+          data?.data?.keywords.map(
             (word) =>
               word.id !== latestVariable.variables.id && (
                 <div
-                  key={word.id}
                   className="bg-background-90 flex items-center gap-x-2 capitalize text-text-secondary py-1 px-4 rounded-full"
+                  key={word.id}
                 >
                   <p>{word.word}</p>
-                  <X
-                    size={20}
-                    onClick={() => deleteMutation({ id: word.id })}
-                  />
                 </div>
               )
           )}
         {latestVariable && latestVariable.status === "pending" && (
           <div className="bg-background-90 flex items-center gap-x-2 capitalize text-text-secondary py-1 px-4 rounded-full">
-            {latestVariable.variables.word}
+            {latestVariable.variables.keyword}
           </div>
         )}
-
         <Input
           placeholder="Add keyword..."
           style={{
@@ -55,6 +52,5 @@ function Keywords({ id }: Props) {
       </div>
     </div>
   );
-}
-
+};
 export default Keywords;
