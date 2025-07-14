@@ -16,6 +16,7 @@ import CreateAutomation from "../create-automation";
 import Search from "./search";
 import { Notifications } from "./notifications";
 import MainBreadCrumb from "../bread-crumbs/main-bread-crumb";
+import GoToAutomationsButton from "../go-to-automations-button";
 
 type Props = {
   slug: string;
@@ -63,7 +64,8 @@ const InfoBar = ({ slug }: Props) => {
             </Sheet>
           </span>
           <Search />
-          <CreateAutomation />
+          {/* <CreateAutomation /> */}
+          <GoToAutomationsButton />
           <Notifications />
         </div>
         <MainBreadCrumb page={page === slug ? "Home" : page} slug={slug} />

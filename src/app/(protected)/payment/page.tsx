@@ -1,6 +1,7 @@
 import { onSubscribe } from "@/actions/user";
 import { redirect } from "next/navigation";
 import React from "react";
+import { CancelPayment } from "@/components/payment/cancel-payment";
 
 type Props = {
   searchParams: {
@@ -20,18 +21,13 @@ const Page = async ({ searchParams: { cancel, session_id } }: Props) => {
     return (
       <div className="flex flex-col justify-center items-center h-screen w-full">
         <h4 className="text-5xl font-bold">404</h4>
-        <p className="text-xl font-bold">Oppse! Something went wrong</p>
+        <p className="text-xl font-bold">Oops! Something went wrong</p>
       </div>
     );
   }
 
   if (cancel) {
-    return (
-      <div className='"flex flex-col justify-center items-center h-screen w-full"'>
-        <h4 className="text-5xl font-bold">404</h4>
-        <p className="text-xl font-bold">Oppse! Something went wrong</p>
-      </div>
-    );
+    return <CancelPayment />;
   }
 };
 

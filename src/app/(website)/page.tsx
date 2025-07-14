@@ -79,7 +79,7 @@ export default function Home() {
                   size="lg"
                   className="bg-blue-600 text-white hover:bg-blue-700"
                 >
-                  Get Started
+                  <Link href="/sign-in">Get Started</Link>
                 </Button>
                 <Button
                   size="lg"
