@@ -4,7 +4,7 @@ A sophisticated Instagram automation platform that helps businesses and creators
 
 ## Tech Stack
 
-- **Frontend**: Next.js 13+ (App Router), TypeScript, TailwindCSS, shadcn/ui
+- **Frontend**: Next.js 14 (App Router), TypeScript, TailwindCSS, shadcn/ui
 - **Backend**: Next.js API Routes (App Router), Prisma ORM
 - **State Management**: Redux Toolkit, React Query (TanStack Query)
 - **Authentication**: Clerk
