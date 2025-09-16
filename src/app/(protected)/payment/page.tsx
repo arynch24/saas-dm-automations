@@ -1,5 +1,5 @@
-import { onSubscribe } from "@/actions/user";
-import { redirect } from "next/navigation";
+// import { onSubscribe } from "@/actions/user";
+// import { redirect } from "next/navigation";
 import React from "react";
 import { CancelPayment } from "@/components/payment/cancel-payment";
 
@@ -12,11 +12,11 @@ type Props = {
 
 const Page = async ({ searchParams: { cancel, session_id } }: Props) => {
   if (session_id) {
-    const customer = await onSubscribe(session_id);
+    // const customer = await onSubscribe(session_id);
 
-    if (customer.status === 200) {
-      return redirect("/dashboard");
-    }
+    // if (customer.status === 200) {
+    //   return redirect("/dashboard");
+    // }
 
     return (
       <div className="flex flex-col justify-center items-center h-screen w-full">
